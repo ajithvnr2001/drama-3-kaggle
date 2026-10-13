@@ -1,0 +1,18 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.log
+
+# Kaggle download logs and temporary outputs
+kaggle_v*.txt
+kaggle_raw_log.txt
+v6_out/
+v7_out/
+kaggle_output/
+fish_speech_repo/
+checkpoints/
+check_kaggle_logs.py
+test_streamed_loader.py
+.cache/
+.ipynb_checkpoints/

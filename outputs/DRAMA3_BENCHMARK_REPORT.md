@@ -18,9 +18,7 @@ Fish Audio Drama-3 (`fishaudio/drama-3`) was successfully deployed and benchmark
 
 | Scenario | Generated Duration | Latency | RTF | Speed | Peak VRAM (GPU 0 / 1) |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| **Track 1: Thriller Novel Scene with Emotion Tags** | 8.36s | 815.2s | **97.521x** | 0.2 fps | 11.76 GB / 12.4 GB |
-| **Track 2: Multi-Speaker Thriller Interaction** | 8.36s | 829.02s | **99.175x** | 0.2 fps | 11.76 GB / 12.41 GB |
-| **Track 3: Native Tamil Fluency & Quality Benchmark vs Gemini** | 5.57s | 555.4s | **99.662x** | 0.2 fps | 11.76 GB / 12.41 GB |
+| **Track 1: 1-Minute Native Tamil Conversation (Vivek & Roobala Thriller Dialogue)** | 50.02s | 4667.66s | **93.324x** | 0.2 fps | 11.76 GB / 12.45 GB |
 
 ---
 

@@ -455,31 +455,14 @@ outputs_dir.mkdir(parents=True, exist_ok=True)
 
 test_scenarios = [
     {
-        "id": "track_1_emotion_thriller",
-        "title": "Track 1: Thriller Novel Scene with Emotion Tags",
-        "description": "Tests [whispering], [panicked], [gasp], and ambient acoustic cues in Tamil narrative",
-        "speakers": ["speaker0"],
-        "prompt_texts": [REF_FEMALE_TEXT],
-        "prompt_tokens": [ref_female_codes],
-        "text": "<|speaker:0|> [whispering] நள்ளிரவு மணி பன்னிரண்டு... [gasp] டமார்னு பின்னாடி கதவு தானா மூடிக்குது! [panicked] தாழ்ப்பாளும் தானா போடுது!"
-    },
-    {
-        "id": "track_2_multi_speaker_dialogue",
-        "title": "Track 2: Multi-Speaker Thriller Interaction",
-        "description": "Tests Drama-3 dual-character voice acting: Female <|speaker:0|> and Male <|speaker:1|>",
+        "id": "track_1min_native_conversation",
+        "title": "Track 1: 1-Minute Native Tamil Conversation (Vivek & Roobala Thriller Dialogue)",
+        "description": "Full 1-minute multi-turn native Tamil dialogue between Detective Vivek and Roobala with emotional cues [whispering], [suspense], [panicked]",
         "speakers": ["speaker0", "speaker1"],
         "prompt_texts": [REF_FEMALE_TEXT, REF_MALE_TEXT],
         "prompt_tokens": [ref_female_codes, ref_male_codes],
-        "text": "<|speaker:0|> [whispering] அர்ஜுன்... பின்னாடி திரும்பி பாரு! <|speaker:1|> [panicked] பிரியா, அந்த கதவு தானா பூட்டிக்கிச்சு! யாரோ இங்க நம்மள கவனிக்கிறாங்க!"
-    },
-    {
-        "id": "track_3_native_tamil_fluency",
-        "title": "Track 3: Native Tamil Fluency & Quality Benchmark vs Gemini",
-        "description": "Standard benchmark test evaluating Tamil accent naturalness, phoneme articulation, and comparison with Gemini 3.8",
-        "speakers": ["speaker0"],
-        "prompt_texts": [REF_FEMALE_TEXT],
-        "prompt_tokens": [ref_female_codes],
-        "text": "<|speaker:0|> வணக்கம். இது ஃபிஷ் ஆடியோவின் டிராமா 3 மாதிரியின் தமிழ் குரல் மற்றும் உணர்ச்சி சோதனை."
+        "max_new_tokens": 1300,
+        "text": "<|speaker:0|> [whispering] விவேக், நேரம் நள்ளிரவு பன்னிரண்டைத் தாண்டிவிட்டது. வெளியே புயல் காற்று மரங்களை வேரோடு சாய்த்துக் கொண்டிருக்கிறது. நீங்கள் இன்னும் அந்தக் கோப்புகளிலேயே மூழ்கியிருக்கிறீர்களே. சற்று ஓய்வெடுக்கலாமே? <|speaker:1|> [thoughtful] வேண்டாம் ரூபலா. இந்த அடைமழையின் இரைச்சலுக்குப் பின்னால் ஒரு விசித்திரமான மௌனம் ஒளிந்திருக்கிறது. என் மனதிற்குள் ஏதோ ஒரு பேராபத்து நெருங்குவதைப் போல அபாய சங்கு ஒலிக்கிறது. <|speaker:0|> [intrigued] உங்கள் உள்ளுணர்வு எப்போதும் பொய்த்ததில்லை விவேக். இன்றும் ஏதேனும் பேராபத்து நடக்கப் போகிறதா? <|speaker:1|> [solemn] இரவு பன்னிரண்டு மணிக்கு மேல் விழித்திருக்கும் மனிதர்கள் இரண்டு வகைதான் ரூபலா. ஒன்று தங்களை மறந்து உழைப்பவர்கள், இன்னொன்று இருளின் போர்வையில் ரத்த வேட்டை நடத்தும் கொடூரக் குற்றவாளிகள்! <|speaker:0|> [gasps] [whispering] விவேக்... அந்த ஜன்னல் கண்ணாடியை பாருங்கள்! யாரோ அங்கே நிழல் போல நிற்கிறார்கள்!"
     }
 ]
 
@@ -517,10 +500,12 @@ for sc in test_scenarios:
     print(f"    Prompt length: {len(prompt)} rows", flush=True)
 
     # Generate acoustic frames
+    max_tokens = sc.get("max_new_tokens", 1290)
+    print(f"    Targeting {max_tokens} acoustic frames (~60s audio)...", flush=True)
     frames, finish_reason = generate_drama3(
         model=model,
         prompt=prompt,
-        max_new_tokens=180,
+        max_new_tokens=max_tokens,
         temperature=0.7,
         top_k=30,
         top_p=0.7,
